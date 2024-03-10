@@ -1,0 +1,114 @@
+ページ分けの挙動(ボタンを押すだけでは機能しないがリロードすると更新される)
+↑リロードした後はなぜかページ1しかボタンがない
+カテゴリ追加ボタンのサイズ(ちょっと小さい) 無理を言って申し訳ないです
+追加編集画面で完了ボタンを押したときの処理(リダイレクトしない)
+期限切れのカテゴリの表示を分ける(日付を赤文字にする等)
+もうあるらしいけど削除機能とタスク達成度
+カテゴリ進行度のパーセンテージ表示
+
+今後やること
+ タスクのカテゴリIDは編集できないようにする <= END
+ カテゴリの詳細も書けるようにする <= END
+ ページ分け機能を追加(1ページごとに10項目ほど) <= END
+ ユーザー機能を追加
+ サーバーをなんとかする
+ ひたすら デバッグ
+
+
+カテゴリに必要なデータ
+ カテゴリ名 <= 1行のテキストボックス
+ カテゴリの詳細 <= 複数行のテキストボックス
+ 締め切り <= 日付と時刻で指定(できればカレンダー的なものが良さげ)
+
+タスクに必要なデータ
+ タスク名 <= 1行のテキストボックス
+ タスクの詳細 <= 複数行のテキストボックス
+ (タスクに紐づくカテゴリのID) <= (枠は作らずスクリプトで直接入れる)
+ 
+
+サーバーを簡易的に立ち上げる
+uvicorn main:app --reload
+デバック用URL
+http://127.0.0.1:8000/docs
+
+Cloud Runにプッシュ
+docker tag backend-fastapi-app  gcr.io/fujisawa-to-do-app/backend-fastapi-app
+docker push gcr.io/fujisawa-to-do-app/backend-fastapi-app
+
+データベースの構造
+
+Categories
+    -ID             INTEGER
+        名前が変わってもIDは変わらない(1始まり)
+    -name           VARCHAR (255)
+        カテゴリの名前
+    -description    TEXT
+        カテゴリの説明文
+    -limit_date     DATETIME
+        カテゴリの有効期限
+    -order_number   INTEGER
+        カテゴリの上から何番目かを記録する(0始まり)
+    -deleted_at     DATETIME or NULL
+        カテゴリが削除された日付 Noneの場合は削除されていない
+    -(status)         (int)
+        カテゴリの進行状況(パーセント表記)サーバー側で計算しているためデータベース側には存在しない
+
+Tasks
+    -ID             INTEGER
+        名前が変わってもIDは変わらない(1始まり)
+    -name           VARCHAR (255)
+        タスクの名前
+    -category_ID    INTEGER
+        タスクが入っているカテゴリのIDを参照
+    -description    TEXT
+        タスクの説明文
+    -status         TINYINT
+        タスクの状態。3段階(未着手, 作業中, 完了)
+    -order_number   INTEGER
+        上から何番目かを記録する(0始まり)
+    -deleted_at     DATETIME or NULL
+        タスクが削除された日付 Noneの場合は削除されていない
+
+API設計
+
+/categories/            GET(start = 0, limit = 20)
+    Categories全体をstartからlimit分出力
+/categories/            POST[Category]
+    Categoriesに項目を追加
+/categories/{id}        GET
+    Categoriesの{id}を出力
+/categories/{id}        PUT[Category]
+    Categoriesの{id}を[Category]の内容に更新
+/categories/{id}        DELETE
+    Categoriesの{id}とそれに紐づいたデータを削除
+/categories/{id}/tasks  GET(start = 0, limit = 20)
+    Tasks内の{id}に紐づいたデータをstartからlimit分出力
+
+/tasks/                 GET(start = 0, limit = 20)
+    Tasks全体をstartからlimit分出力
+/tasks/                 POST[Task]
+    Tasksに項目を追加
+/tasks/{id}             GET
+    Tasksの{id}を出力
+/tasks/update/{id}      PUT[Task]
+    Tasksの{id}を[Task]の内容に更新
+/tasks/{id}             DELETE
+    Tasksの{id}とそれに紐づいたデータを削除
+
+リストの一覧を出力する
+指定されたリストの項目を出力する
+
+リストの内容を保存する
+
+リスト自体を追加する
+リストの名前を変える
+リストを削除する
+リストの順序を変える
+
+リストに項目を追加する
+項目の名前を変える
+項目を削除する
+項目の順序を変える
+リストの中の項目を並べ替える
+項目にチェックを付けたことを記録する
+項目のチェックが外されたことを記録する

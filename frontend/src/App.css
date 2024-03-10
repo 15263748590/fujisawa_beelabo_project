@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Kurenaido&display=swap');
+
+body {
+  font-family: 'Zen Kurenaido', sans-serif;
+}
+
+.c{
+  font-size: 40px;
+  color:#16FF02;
+  background-color: black;
+}
+
+.add_btn{
+  position: fixed;
+  bottom: 5%;
+  right: 5%;
+  background-color: #92E8E8;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 30px;
+  height: 30px;
+  border-radius: 100px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.add_btn:hover{
+  opacity: 0.6;
+}
+
+.add_btn span{
+  text-align: center;
+  margin: 0 auto;
+  color: #000AFB;
+  font-size: 24px;
+}
+
+.progress-100{
+  border-radius: 72px;
+  background-color: #16FF02;
+  color: #ffff;
+  text-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.progress-75{
+  border-radius: 72px;
+  background-color: #E2FF70;
+  color: #ffff;
+  text-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25)    
+}
+
+.progress-50{
+  border-radius: 72px;
+  background-color: #FFF85C;
+  color: #ffff;
+  text-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25)        
+}
+
+.progress-25{
+  border-radius: 72px;
+  background-color: #FFB45B;
+  color: #ffff;
+  text-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25)       
+}
+
+.progress-0{
+  border-radius: 72px;
+  background-color: red;
+  color: #ffff;
+  text-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25)   
+}
+.progress p{
+  text-align: center;
+  margin: 0 auto;
+}
+.progress-tekisuto{
+  border-radius: 72px;
+  background-color: D9D9D9;
+  color: black;  
+}
+.progress-tasuku{
+  border-radius: 72px;
+  background-color: C3FFFB;
+  color: black; 
+}
+
+.small-text{
+  /* font-size: 0.8rem; */
+  font-size: 1rem;
+}
+
+a{
+  font-size: 1rem;
+}
+
+.category-name{
+  /* font-size: 0.8rem; */
+  font-size: 1rem;
+}
+
+.form-control{
+  font-size: 1.2rem;
+}
