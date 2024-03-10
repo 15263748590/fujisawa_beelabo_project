@@ -1,0 +1,1 @@
+# fujisawa_beelabo_project
